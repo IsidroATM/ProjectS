@@ -28,8 +28,17 @@ Años después, una joven investigadora decide ir a la iglesia a investigar los 
 - **Enemigo**: Un sacerdote poseído que patrulla la iglesia y persigue al jugador si entra en su rango de visión.
 - Mecánicas adicionales en desarrollo para mejorar la jugabilidad.
 
+##Equipo de Desarrollo
+
+Este proyecto está siendo desarrollado por el siguiente equipo:
+
+Toores Martínez Isidro Antonio - Desarrollador Principal    / Programador
+Pérez Ramírez Cristopher Brayan - Diseñador de Gráficos     / Diseñador
+Sáenz Rojas Leonardo Nicolás - Desarrollador de Jugabilidad / Animador
+Terán Mendoza Esmeralda Brisa - Diseñadora de Sonido        / Compositora
+
 ## Instalación
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/tuusuario/urbex.git
+   git clone https://github.com/IsidroATM/ProjectS.git
