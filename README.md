@@ -32,10 +32,10 @@ Años después, una joven investigadora decide ir a la iglesia a investigar los 
 
 Este proyecto está siendo desarrollado por el siguiente equipo:
 
-Toores Martínez Isidro Antonio - Desarrollador Principal    / Programador
-Pérez Ramírez Cristopher Brayan - Diseñador de Gráficos     / Diseñador
-Sáenz Rojas Leonardo Nicolás - Desarrollador de Jugabilidad / Animador
-Terán Mendoza Esmeralda Brisa - Diseñadora de Sonido        / Compositora
+- Pérez Ramírez Cristopher Brayan - Diseñador de Gráficos     / **Diseñador**
+- Sáenz Rojas Leonardo Nicolás - Desarrollador de Jugabilidad / **Animador**
+- Terán Mendoza Esmeralda Brisa - Diseñadora de Sonido        / **Compositora**
+- Torres Martínez Isidro Antonio - Desarrollador Principal    / **Programador**
 
 ## Instalación
 
