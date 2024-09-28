@@ -31,11 +31,6 @@ public class PlayerController : MonoBehaviour
     //Animations
     public Animator playerAnimatorController;
 
-    public CinemachineVirtualCamera thirdPersonCam;
-    public CinemachineVirtualCamera firstPersonCam;
-
-    // Variable para gestionar el estado de la cámara
-    private bool isFirstPerson = false;
 
 
     // Start is called before the first frame update
@@ -43,83 +38,48 @@ public class PlayerController : MonoBehaviour
     {
         player = GetComponent<CharacterController>();
         playerAnimatorController = GetComponent<Animator>();
-
-        // Inicialmente activamos la cámara de tercera persona
-        thirdPersonCam.gameObject.SetActive(true);
-        firstPersonCam.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    horizontalMove = Input.GetAxis("Horizontal");
-    //    verticalMove = Input.GetAxis("Vertical");
-
-    //    playerInput = new Vector3(horizontalMove, 0, verticalMove);
-    //    playerInput = Vector3.ClampMagnitude(playerInput, 1);//Control de velocidad desp-Max10
-
-    //    playerAnimatorController.SetFloat("PlayerWalkVelocity", playerInput.magnitude * playerSpeed);
-
-
-    //    CamDirection();
-    //    movePlayer = playerInput.x * camRight + playerInput.z * camForward;
-    //    movePlayer = movePlayer * playerSpeed;
-
-    //    player.transform.LookAt(player.transform.position + movePlayer);//Mirar a la direccion de movimiento
-
-    //    SetGravity();
-
-    //    PlayerSkills();
-
-    //    player.Move(movePlayer * Time.deltaTime);
-
-    //}
+    //Update is called once per frame
     void Update()
     {
-        // Alternar entre cámaras al presionar la tecla C
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            ToggleCameraView();
-        }
-
-        // Código de movimiento existente...
         horizontalMove = Input.GetAxis("Horizontal");
         verticalMove = Input.GetAxis("Vertical");
 
         playerInput = new Vector3(horizontalMove, 0, verticalMove);
-        playerInput = Vector3.ClampMagnitude(playerInput, 1);
+        playerInput = Vector3.ClampMagnitude(playerInput, 1); // Control de velocidad desp-Max10
 
         playerAnimatorController.SetFloat("PlayerWalkVelocity", playerInput.magnitude * playerSpeed);
 
+        // Calcula la dirección de la cámara
         CamDirection();
+
+        // Mueve al jugador basado en la dirección de la cámara
         movePlayer = playerInput.x * camRight + playerInput.z * camForward;
         movePlayer = movePlayer * playerSpeed;
 
-        player.transform.LookAt(player.transform.position + movePlayer);
+        player.transform.LookAt(player.transform.position + movePlayer); // Mirar en la dirección del movimiento
 
         SetGravity();
-
         PlayerSkills();
 
         player.Move(movePlayer * Time.deltaTime);
     }
-    void ToggleCameraView()
-    {
-        isFirstPerson = !isFirstPerson;
 
-        if (isFirstPerson)
-        {
-            // Activa la cámara en primera persona y desactiva la de tercera persona
-            thirdPersonCam.gameObject.SetActive(false);
-            firstPersonCam.gameObject.SetActive(true);
-        }
-        else
-        {
-            // Activa la cámara en tercera persona y desactiva la de primera persona
-            thirdPersonCam.gameObject.SetActive(true);
-            firstPersonCam.gameObject.SetActive(false);
-        }
+    void CamDirection()
+    {
+        // Actualiza las direcciones camForward y camRight según la cámara activa
+        camForward = mainCamera.transform.forward;
+        camRight = mainCamera.transform.right;
+
+        camForward.y = 0; // Ignora la inclinación vertical de la cámara
+        camRight.y = 0;
+
+        camForward = camForward.normalized;
+        camRight = camRight.normalized;
     }
+
+
     void PlayerSkills()
     {
         if (player.isGrounded && Input.GetButtonDown("Jump"))
@@ -128,16 +88,6 @@ public class PlayerController : MonoBehaviour
             movePlayer.y = fallVelocity;
             playerAnimatorController.SetTrigger("PlayerJump");
         }
-        //if (Input.GetKeyDown(KeyCode.LeftShift))
-        //{
-        //    contVel = Mathf.Lerp(playerSpeed, playerSpeed + 0.5f, 0.5f);
-        //    playerSpeed = Mathf.Clamp(contVel, 0f, 10f);
-        //}
-        //if (Input.GetKeyUp(KeyCode.LeftShift))
-        //{
-        //    contVel = Mathf.Lerp(playerSpeed, playerSpeed - 0.5f, 0.5f);
-        //    playerSpeed = Mathf.Clamp(contVel, 0f, 10f);
-        //}
         // Aumentar velocidad al presionar Shift
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -150,17 +100,7 @@ public class PlayerController : MonoBehaviour
             playerSpeed -= 5f; // Restablece la velocidad original
         }
     }
-    void CamDirection()
-    {
-        camForward = mainCamera.transform.forward;
-        camRight = mainCamera.transform.right;
-
-        camForward.y = 0;
-        camRight.y = 0;
-
-        camForward = camForward.normalized;
-        camRight = camRight.normalized;
-    }
+    
     void SetGravity()
     {
         if (player.isGrounded)

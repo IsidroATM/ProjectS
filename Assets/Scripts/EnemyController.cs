@@ -48,7 +48,7 @@ public class EnemyController : MonoBehaviour
                     break;
                 case 2:
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, angulo, 0.5f);
-                    transform.Translate(Vector3.forward * 1 * Time.deltaTime);
+                    transform.Translate(Vector3.forward * 2 * Time.deltaTime);
                     ani.SetBool("walk", true);
                     break;
 
@@ -63,7 +63,7 @@ public class EnemyController : MonoBehaviour
             ani.SetBool("walk", false);
 
             ani.SetBool("run", true);
-            transform.Translate(Vector3.forward * 2 * Time.deltaTime);
+            transform.Translate(Vector3.forward * 4 * Time.deltaTime);
         }        
     }
 }
