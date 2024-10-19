@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class PlayerController : MonoBehaviour
 {
@@ -31,6 +32,10 @@ public class PlayerController : MonoBehaviour
     //Animations
     public Animator playerAnimatorController;
 
+    // Referencia al sistema de vida
+    public GameDataController gameDataController;
+    public int currentLife;
+
 
 
     // Start is called before the first frame update
@@ -38,11 +43,24 @@ public class PlayerController : MonoBehaviour
     {
         player = GetComponent<CharacterController>();
         playerAnimatorController = GetComponent<Animator>();
+
+        // Inicializa el controlador de vida
+        gameDataController = FindObjectOfType<GameDataController>();
+
+        // Asigna la vida inicial desde el controlador de datos
+        currentLife = gameDataController.life;
     }
 
     //Update is called once per frame
     void Update()
     {
+        if (currentLife <= 0)
+        {
+            // Aquí puedes manejar lo que ocurre cuando el jugador muere
+            playerAnimatorController.SetTrigger("PlayerDeath");
+            return; // Si la vida es 0, el jugador no puede moverse
+        }
+
         horizontalMove = Input.GetAxis("Horizontal");
         verticalMove = Input.GetAxis("Vertical");
 
@@ -128,13 +146,20 @@ public class PlayerController : MonoBehaviour
             movePlayer.y += slopeForceDown;
         }
     }
-
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         hitNormal = hit.normal;
     }
-    private void OnAnimatorMove()
-    {
 
-    }
+    //// Método para restar vida al personaje
+    //public void TakeDamage(int damage)
+    //{
+    //    gameDataController.RestarVida(damage); // Llamar a la función en el controlador de datos
+    //    currentLife = gameDataController.life; // Actualiza la vida actual del jugador
+    //    if (currentLife <= 0)
+    //    {
+    //        // Lógica para cuando el jugador muere
+    //        playerAnimatorController.SetTrigger("PlayerDeath");
+    //    }
+    //}
 }

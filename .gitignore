@@ -3,3 +3,24 @@
 *.vsidx
 *.vscode
 /Library
+Assets/Cabaña/Materials/roof.003.mat.meta
+Assets/Cabaña/Materials/roof.003.mat
+Assets/3D Game Kit - Character Pack/Characters/Dron/Materials.meta
+*.mat
+*.meta
+*.anim
+*.tga
+*.jpg
+*.exr
+*.pdf
+*.txt
+*.ttf
+*.prefab
+*.asset
+*.unity
+*.cs
+*.png
+*.psd
+*.shader
+*.cginc
+*.json
